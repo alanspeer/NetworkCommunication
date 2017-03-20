@@ -8,6 +8,8 @@ package com.example.a2speea07.networkcommunication;
         import android.widget.Button;
         import android.widget.EditText;
         import android.os.AsyncTask;
+        import android.widget.TextView;
+
         import java.io.IOException;
         import java.net.HttpURLConnection;
         import java.net.URL;
@@ -17,9 +19,9 @@ package com.example.a2speea07.networkcommunication;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
-    class MyTask extends AsyncTask<Void,Void,String>
+    class MyTask extends AsyncTask<String,Void,String>
     {
-        public String doInBackground(Void... unused)
+        public String doInBackground(String... arguments)
         {
             HttpURLConnection conn = null;
             try
@@ -53,8 +55,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         public void onPostExecute(String result)
         {
-            EditText et1 = (EditText)findViewById(R.id.et1);
-            et1.setText(result);
+            TextView tv1 = (TextView)findViewById(R.id.tv1);
+            tv1.setText(result);
         }
     }
 
@@ -62,13 +64,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button go = (Button)findViewById(R.id.go);
-        go.setOnClickListener(this);
+        Button download = (Button)findViewById(R.id.btn1);
+        download.setOnClickListener(this);
     }
 
     public void onClick(View v)
     {
+        EditText et1 = (EditText) findViewById(R.id.TextField);
         MyTask t = new MyTask();
-        t.execute();
+        t.execute(artist);
     }
 }
